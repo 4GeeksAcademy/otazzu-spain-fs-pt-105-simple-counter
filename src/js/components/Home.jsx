@@ -1,26 +1,35 @@
 import React from "react";
+import { Clock } from "./Clock";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
+	let counter = 0;
+	const startCounter = () =>{
+		setInterval(() =>{
+			counter++
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+			let hours = Math.floor(counter / 3600);
+			let minutes = Math.floor((counter % 3600) / 60);
+			let seconds = counter % 60;
+			
+			let hStr = hours.toString().padStart(2, '0');
+			let mStr = minutes.toString().padStart(2, '0');
+			let sStr = seconds.toString().padStart(2, '0');
+
+			document.querySelector("#h1").textContent = hStr[0];
+			document.querySelector("#h2").textContent = hStr[1];
+			document.querySelector("#m1").textContent = mStr[0];
+			document.querySelector("#m2").textContent = mStr[1];
+			document.querySelector("#s1").textContent = sStr[0];
+			document.querySelector("#s2").textContent = sStr[1];
+		},1000)
+	}
+
+	window.onload = startCounter;
+
+	return (
+		<div>
+			<Clock counter={counter} />
 		</div>
 	);
 };
